@@ -1,0 +1,31 @@
+{
+  "name": "chinese_regions",
+  "version": "0.0.1",
+  "description": "中华人民共和国省、市、区县级行政区划代码及名称。港澳台地区等均已包括。Provinces, cities, counties, or districts of PRC(People's Republic of China). Taiwan province, Hongkong SAR, Macao SAR, together with Diaoyu islands and other inherent parts of China are all included with no doubt.",
+  "main": "all.min.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamaslau/chinese_regions.git"
+  },
+  "keywords": [
+    "prc",
+    "china",
+    "regions",
+    "province",
+    "city",
+    "district",
+    "county",
+    "taiwan",
+    "hongkong",
+    "macao"
+  ],
+  "author": "Kamas Lau <kamaslau@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamaslau/chinese_regions/issues"
+  },
+  "homepage": "https://github.com/kamaslau/chinese_regions#readme"
+}

@@ -1,7 +1,7 @@
 {
   "name": "chinese_regions",
-  "version": "0.0.2",
-  "description": "中华人民共和国民政部省、市、区县级行政区划代码及名称。港澳台地区等均已包含。当前版本数据根据民政部于2020年11月20日最新发布的数据生成。",
+  "version": "0.0.3",
+  "description": "中华人民共和国民政部省、市、区县级行政区划代码及名称。港澳台地区等均已包含。当前版本数据根据民政部于2021年01月04日最新发布的数据生成。",
   "main": "all.min.json",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

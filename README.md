@@ -1,5 +1,7 @@
 # chinese_regions
 
+![npm](https://img.shields.io/npm/v/chinese_regions) ![npm bundle size](https://img.shields.io/bundlephobia/min/chinese_regions)
+
 中国省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。
 
 数据根据中华人民共和国民政部官方发布的数据更新，一般为调整某地（或数地）行政区后进行相应更新，例如撤并、县改区、市直辖等情况。

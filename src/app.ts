@@ -4,10 +4,10 @@ import Koa from 'koa'
 
 // Local
 import { consoleInit, consoleStart, briefLog } from './utils'
-import { fetchSource } from './processor'
+import { fetchSource, parseRawHTML } from './processor'
 
 // 输出程序初始化信息
-console.log('process.env: ', process.env)
+// console.log('process.env: ', process.env)
 consoleInit()
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -35,11 +35,12 @@ app.use(async (ctx, next) => {
     ctx.status = 400
     ctx.body = { data: rawData, figureURL: 'https://http.cat/400' }
   } else {
-    ctx.status = 200
-    ctx.body = rawData
+    // isDev && console.log('rawData: ', rawData)
   }
 
   // TODO 解析源数据
+  ctx.status = 200
+  ctx.body = parseRawHTML(rawData)
 
   // TODO 生成可用文件
 })

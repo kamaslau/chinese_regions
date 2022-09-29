@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "include": ["src/**/*", "tests/**/*"],
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "types"],
+    "rootDir": "src",
+    "outDir": "dist",
+    "lib": ["esnext", "es2021"],
+    "removeComments": true,
+    "noImplicitAny": false
+  }
+}

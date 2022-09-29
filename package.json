@@ -1,9 +1,11 @@
 {
   "name": "chinese_regions",
-  "version": "0.0.4",
-  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前版本最后更新于2021年9月29日，根据中华人民共和国民政部于2021年01月04日最新发布的数据生成。",
+  "version": "0.1.0",
+  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前版本最后更新于2022年9月30日，根据中华人民共和国民政部于2021年05月10日最新发布的数据生成。",
   "main": "dist/all.min.json",
   "scripts": {
+    "start:dev": "cross-env nodemon",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,5 +33,18 @@
   "bugs": {
     "url": "https://github.com/kamaslau/chinese_regions/issues"
   },
-  "homepage": "https://github.com/kamaslau/chinese_regions#readme"
+  "homepage": "https://github.com/kamaslau/chinese_regions#readme",
+  "devDependencies": {
+    "@tsconfig/node18": "latest",
+    "@types/fs-extra": "^9.0.13",
+    "@types/koa": "^2.13.5",
+    "@types/node": "latest",
+    "cheerio": "1.0.0-rc.12",
+    "dotenv": "^16.0.2",
+    "fs-extra": "^10.1.0",
+    "koa": "^2.13.4",
+    "node-fetch": "2",
+    "nodemon": "latest",
+    "typescript": "latest"
+  }
 }

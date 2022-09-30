@@ -6,7 +6,7 @@ specifiers:
   '@types/koa': ^2.13.5
   '@types/node': latest
   cheerio: 1.0.0-rc.12
-  dotenv: ^16.0.2
+  dotenv: ^16.0.3
   fs-extra: ^10.1.0
   koa: ^2.13.4
   node-fetch: ^2.6.7
@@ -19,7 +19,7 @@ devDependencies:
   '@types/koa': 2.13.5
   '@types/node': 18.7.23
   cheerio: 1.0.0-rc.12
-  dotenv: 16.0.2
+  dotenv: 16.0.3
   fs-extra: 10.1.0
   koa: 2.13.4
   node-fetch: 2.6.7
@@ -353,8 +353,8 @@ packages:
       domhandler: 5.0.3
     dev: true
 
-  /dotenv/16.0.2:
-    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
     dev: true
 

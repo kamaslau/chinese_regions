@@ -34,6 +34,9 @@
     "url": "https://github.com/kamaslau/chinese_regions/issues"
   },
   "homepage": "https://github.com/kamaslau/chinese_regions#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@tsconfig/node18": "latest",
     "@types/fs-extra": "^9.0.13",

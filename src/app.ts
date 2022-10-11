@@ -4,7 +4,7 @@ import Koa from 'koa'
 
 // Local
 import { consoleInit, consoleStart, briefLog } from './utils'
-import { fetchSource, parseRawHTML } from './processor'
+import { fetchSource, parseRawHTML, generateJSON } from './processor'
 
 // 输出程序初始化信息
 // console.log('process.env: ', process.env)
@@ -26,7 +26,7 @@ app.on('error', (error, ctx): void => {
   ctx.body = { content: error.message }
 })
 
-// TODO 业务路由
+// 业务路由
 app.use(async (ctx, next) => {
 
   // 请求源数据页面
@@ -38,11 +38,18 @@ app.use(async (ctx, next) => {
     // isDev && console.log('rawData: ', rawData)
   }
 
-  // TODO 解析源数据
-  ctx.status = 200
-  ctx.body = parseRawHTML(rawData)
+  // 解析源数据
+  const dataset = parseRawHTML(rawData)
 
-  // TODO 生成可用文件
+  // 生成可用文件
+  const files = generateJSON(dataset)
+
+  // 输出业务摘要
+  ctx.status = 200
+  ctx.body = {
+    dataset,
+    files
+  }
 })
 
 const serverPort = process.env.PORT ?? 3000

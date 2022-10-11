@@ -8,7 +8,7 @@
 
 ## 安装
 
-``` JavaScript
+```JavaScript
 npm i chinese_regions
 
 import Regions from 'chinese_regions'
@@ -16,89 +16,121 @@ import Regions from 'chinese_regions'
 
 ## 数据结构
 
+```json
+{
+  // 省级
+  "province": [
+    {
+      "code": 370000, // 当前行政区划代码
+      "name": "山东省" // 当前行政区划名称
+    }
+  ],
+  // 市级
+  "city": [
+    {
+      "p_code": 370000, // 所属省级行政区划代码
+      "p_name": "山东省", // 所属省级行政区划名称
+      "code": 370200,
+      "name": "青岛市"
+    }
+  ],
+  // 区县级
+  "county": [
+    {
+      "p_code": 370000,
+      "p_name": "山东省",
+      "c_code": 370200, // 所属市级行政区划代码
+      "c_name": "青岛市", // 所属市级行政区划代码
+      "code": 370202,
+      "name": "市南区"
+    }
+  ]
+}
+```
+
 以山东省青岛市相关的部分数据为例：
 
-``` json
+```json
 {
   "province": [
     {
-        "code": "370000",
-        "name": "山东省"
+      "code": 370000,
+      "name": "山东省"
     }
   ],
   "city": [
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "code": "370200",
+      "code": 370200,
       "name": "青岛市"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "code": "370100",
+      "code": 370100,
       "name": "济南市"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "code": "370600",
+      "code": 370600,
       "name": "烟台市"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "code": "370700",
+      "code": 370700,
       "name": "潍坊市"
     }
   ],
   "county": [
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370202",
+      "code": 370202,
       "name": "市南区"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370203",
+      "code": 370203,
       "name": "市北区"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370211",
+      "code": 370211,
       "name": "黄岛区"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370212",
+      "code": 370212,
       "name": "崂山区"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370213",
+      "code": 370213,
       "name": "李沧区"
     },
     {
-      "p_code": "370000",
+      "p_code": 370000,
       "p_name": "山东省",
-      "c_code": "370200",
+      "c_code": 370200,
       "c_name": "青岛市",
-      "code": "370214",
+      "code": 370214,
       "name": "城阳区"
     }
   ]
@@ -113,13 +145,13 @@ import Regions from 'chinese_regions'
 
 适用于级联选择器等组件
 
-1. 输出并选择province键下的省级行政区
-2. 根据province值输出city键下的市级行政区
-3. 根据city值输出county键下的区/县级行政区
+1. 输出并选择 province 键下的省级行政区
+2. 根据 province 值输出 city 键下的市级行政区
+3. 根据 city 值输出 county 键下的区/县级行政区
 
 ### 后端
 
 适用于查询构建器等业务
 
-1. 引入all.min.json文件并解析为所需类型
-2. 保存数据到数据库的相关表，例如region等
+1. 引入 all.min.json 文件并解析为所需类型
+2. 保存数据到数据库的相关表，例如 region 等

@@ -120,3 +120,6 @@ gen
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+
+.env
+node_modules

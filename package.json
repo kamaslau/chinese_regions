@@ -45,7 +45,7 @@
     "cheerio": "1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "fs-extra": "^11.1.0",
-    "koa": "^2.13.4",
+    "koa": "^2.14.1",
     "node-fetch": "^2.6.7",
     "nodemon": "latest",
     "typescript": "latest"

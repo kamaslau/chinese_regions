@@ -1,5 +1,4 @@
 // External
-import fetch from 'node-fetch'
 import fs from 'fs-extra'
 import * as cheerio from 'cheerio'
 
@@ -15,13 +14,11 @@ const fetchSource = async (url: string): Promise<string> => {
   // 验证源数据网址格式
   if (typeof url !== 'string') return ''
 
-  let result: string = ''
-
-  result = await fetch(
+  let result = await fetch(
     url
   ).then(res => res.text()).catch(error => console.error(error))
 
-  return result
+  return result ?? ''
 }
 
 
@@ -145,7 +142,7 @@ const parseRawHTML = (payload: string): dataset => {
 }
 
 const generateJSON = (payload: dataset, dir: string = 'dist', fileName: string = 'all'): any => {
-  const targetDir = path.join(__dirname, '../', dir)
+  const targetDir = path.join(path.resolve(), dir)
   const paths = {
     minified: path.join(targetDir, `${fileName}.min.json`)
   }

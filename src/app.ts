@@ -3,8 +3,8 @@ import 'dotenv/config' // 载入.env环境配置文件
 import Koa from 'koa'
 
 // Local
-import { consoleInit, consoleStart, briefLog } from './utils'
-import { fetchSource, parseRawHTML, generateJSON } from './processor'
+import { consoleInit, consoleStart, briefLog } from './utils.js'
+import { fetchSource, parseRawHTML, generateJSON } from './processor.js'
 
 // 输出程序初始化信息
 // console.log('process.env: ', process.env)

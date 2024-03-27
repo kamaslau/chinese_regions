@@ -1,7 +1,11 @@
 {
   "name": "chinese_regions",
-  "version": "0.1.0",
-  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前版本最后更新于2022年9月30日，根据中华人民共和国民政部于2021年05月10日最新发布的数据生成。",
+  "version": "0.2.0",
+  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前版本最后更新于2024年3月27日，根据中华人民共和国民政部于2023年04月23日最新发布的数据生成。",
+  "engines": {
+    "node": "^20 || >=20"
+  },
+  "type": "module",
   "main": "dist/all.min.json",
   "scripts": {
     "start:dev": "cross-env nodemon",
@@ -38,16 +42,17 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@tsconfig/node18": "latest",
-    "@types/fs-extra": "^11.0.1",
-    "@types/koa": "^2.13.5",
-    "@types/node": "latest",
+    "@tsconfig/node20": "^20",
+    "@types/fs-extra": "^11.0.4",
+    "@types/koa": "^2.15.0",
+    "@types/node": "^20",
     "cheerio": "1.0.0-rc.12",
-    "dotenv": "^16.0.3",
-    "fs-extra": "^11.1.0",
-    "koa": "^2.14.1",
-    "node-fetch": "^2.6.7",
-    "nodemon": "latest",
-    "typescript": "latest"
-  }
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "koa": "^2.15.2",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
 }

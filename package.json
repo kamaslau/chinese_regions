@@ -1,7 +1,7 @@
 {
   "name": "chinese_regions",
   "version": "0.2.0",
-  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前版本最后更新于2024年3月27日，根据中华人民共和国民政部于2023年04月23日最新发布的数据生成。",
+  "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前数据最后更新于2024年4月17日，根据中华人民共和国民政部于2023年04月23日最新发布的数据生成。",
   "engines": {
     "node": "^20 || >=20"
   },
@@ -49,10 +49,10 @@
     "cheerio": "1.0.0-rc.12",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
-    "koa": "^2.15.2",
+    "koa": "^2.15.3",
     "nodemon": "^3.1.0",
     "ts-node": "^10",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
+  "packageManager": "pnpm@9.0.1+sha256.46d50ee2afecb42b185ebbd662dc7bdd52ef5be56bf035bb615cab81a75345df"
 }

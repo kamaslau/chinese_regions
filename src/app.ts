@@ -38,8 +38,15 @@ app.use(async (ctx, next) => {
     // isDev && console.log('rawData: ', rawData)
   }
 
-  // 解析源数据
+  // 解析大陆行政区源数据
   const dataset = parseRawHTML(rawData)
+
+  // TODO 解析各特别行政区源数据
+  const sarDataset = []
+  const sars = ['macau']
+  sars.map(item => {
+    // TODO
+  })
 
   // 生成可用文件
   const files = generateJSON(dataset)

@@ -8,24 +8,32 @@
 
 ## 安装
 
-```JavaScript
+```javascript
+// npm
 npm i chinese_regions
+// pnpm
+pnpm add chinese_regions
 
-import Regions from 'chinese_regions'
+import Regions from "chinese_regions" with { type: "json" };
+console.log(Regions.province.length);
+console.log(Regions.city.length);
+console.log(Regions.county.length);
 ```
+
+P.S. The old 'assert' keyword has been deprecated, see https://github.com/tc39/proposal-import-attributes#history for more detail.
 
 ## 数据结构
 
 ```json
 {
-  // 省级
+  // 省级数据集
   "province": [
     {
       "code": 370000, // 当前行政区划代码
       "name": "山东省" // 当前行政区划名称
     }
   ],
-  // 市级
+  // 市级数据集
   "city": [
     {
       "p_code": 370000, // 所属省级行政区划代码
@@ -34,7 +42,7 @@ import Regions from 'chinese_regions'
       "name": "青岛市"
     }
   ],
-  // 区县级
+  // 区县级数据集
   "county": [
     {
       "p_code": 370000,

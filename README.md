@@ -1,6 +1,7 @@
 # chinese_regions
 
 ![npm](https://img.shields.io/npm/v/chinese_regions)
+![NPM Downloads](https://img.shields.io/npm/dy/chinese_regions)
 
 中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市、市、区/县级行政区划代码及名称。港澳台地区等均已包含。
 

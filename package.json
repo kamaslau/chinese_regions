@@ -46,11 +46,11 @@
     "@types/fs-extra": "^11.0.4",
     "@types/koa": "^2.15.0",
     "@types/node": "^20",
-    "cheerio": "1.0.0-rc.12",
+    "cheerio": "1.1.2",
     "dotenv": "^16.4.5",
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.1",
     "koa": "^2.15.3",
-    "nodemon": "^3.1.4",
+    "nodemon": "^3.1.10",
     "ts-node": "^10",
     "typescript": "^5"
   }

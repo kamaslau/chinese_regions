@@ -8,9 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@tsconfig/node22':
-        specifier: ^22
-        version: 22.0.0
+      '@tsconfig/node24':
+        specifier: ^24.0.1
+        version: 24.0.1
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -18,8 +18,8 @@ importers:
         specifier: ^2.15.0
         version: 2.15.0
       '@types/node':
-        specifier: ^20
-        version: 20.11.30
+        specifier: ^24.3.0
+        version: 24.3.0
       cheerio:
         specifier: 1.1.2
         version: 1.1.2
@@ -37,7 +37,7 @@ importers:
         version: 3.1.10
       ts-node:
         specifier: ^10
-        version: 10.9.2(@types/node@20.11.30)(typescript@5.4.3)
+        version: 10.9.2(@types/node@24.3.0)(typescript@5.4.3)
       typescript:
         specifier: ^5
         version: 5.4.3
@@ -70,8 +70,8 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@tsconfig/node22@22.0.0':
-    resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
+  '@tsconfig/node24@24.0.1':
+    resolution: {integrity: sha512-3+IXshza3bIrT0tbHBr9CixQDVf4iBf0HTR0hCYowhpLqkzJjswu3UY8aZWjRXZep31kYB+o2SQeD8KwIoUHYw==}
 
   '@types/accepts@1.3.5':
     resolution: {integrity: sha512-jOdnI/3qTpHABjM5cx1Hc0sKsPoYCp+DP/GJRGtDlPd7fiV9oXGGIcjW/ZOxLIvjGz8MA+uMZI9metHlgqbgwQ==}
@@ -118,8 +118,8 @@ packages:
   '@types/mime@3.0.1':
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
 
-  '@types/node@20.11.30':
-    resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
+  '@types/node@24.3.0':
+    resolution: {integrity: sha512-aPTXCrfwnDLj4VvXrm+UUCQjNEvJgNA8s5F1cvwQU+3KNltTOkBm1j30uNLyqqPNe7gE3KFzImYoZEfLhp4Yow==}
 
   '@types/qs@6.9.7':
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -522,8 +522,8 @@ packages:
   undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
 
-  undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+  undici-types@7.10.0:
+    resolution: {integrity: sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==}
 
   undici@7.15.0:
     resolution: {integrity: sha512-7oZJCPvvMvTd0OlqWsIxTuItTpJBpU1tcbVl24FMn3xt3+VSunwUasmfPJRE57oNO1KsZ4PgA1xTdAX4hq8NyQ==}
@@ -582,20 +582,20 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@tsconfig/node22@22.0.0': {}
+  '@tsconfig/node24@24.0.1': {}
 
   '@types/accepts@1.3.5':
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/body-parser@1.19.2':
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/connect@3.4.35':
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/content-disposition@0.5.5': {}
 
@@ -604,11 +604,11 @@ snapshots:
       '@types/connect': 3.4.35
       '@types/express': 4.17.14
       '@types/keygrip': 1.0.2
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/express-serve-static-core@4.17.31':
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
 
@@ -622,7 +622,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.1
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/http-assert@1.5.3': {}
 
@@ -630,7 +630,7 @@ snapshots:
 
   '@types/jsonfile@6.1.1':
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/keygrip@1.0.2': {}
 
@@ -647,13 +647,13 @@ snapshots:
       '@types/http-errors': 2.0.1
       '@types/keygrip': 1.0.2
       '@types/koa-compose': 3.2.5
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   '@types/mime@3.0.1': {}
 
-  '@types/node@20.11.30':
+  '@types/node@24.3.0':
     dependencies:
-      undici-types: 5.26.5
+      undici-types: 7.10.0
 
   '@types/qs@6.9.7': {}
 
@@ -662,7 +662,7 @@ snapshots:
   '@types/serve-static@1.15.0':
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
 
   abbrev@1.1.1: {}
 
@@ -1039,14 +1039,14 @@ snapshots:
     dependencies:
       nopt: 1.0.10
 
-  ts-node@10.9.2(@types/node@20.11.30)(typescript@5.4.3):
+  ts-node@10.9.2(@types/node@24.3.0)(typescript@5.4.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.11.30
+      '@types/node': 24.3.0
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -1068,7 +1068,7 @@ snapshots:
 
   undefsafe@2.0.5: {}
 
-  undici-types@5.26.5: {}
+  undici-types@7.10.0: {}
 
   undici@7.15.0: {}
 

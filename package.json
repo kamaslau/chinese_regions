@@ -21,7 +21,7 @@
   "author": "Lau, Kamas <kamaslau@dingtalk.com> (https://www.kamaslau.com/)",
   "license": "MIT",
   "type": "module",
-  "main": "dist/all.min.json",
+  "main": "out/all.min.json",
   "engines": {
     "node": "^24 || >=22"
   },

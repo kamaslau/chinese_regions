@@ -27,8 +27,28 @@ app.on('error', (error, ctx): void => {
 
 // 业务路由
 app.use(async (ctx, next) => {
+  let url: URL | undefined
+  let errorMessage: string | undefined
+
+  if (typeof process.env.SOURCE_URL !== 'string' || process.env.SOURCE_URL.length === 0) {
+    errorMessage = 'SOURCE_URL 未配置'
+  } else {
+    try {
+      url = new URL(process.env.SOURCE_URL)
+      // url 现在是一个有效的 URL 对象
+    } catch (error) {
+      errorMessage = 'SOURCE_URL 不符合 URL 格式'
+    }
+  }
+
+  if (typeof errorMessage === 'string') {
+    ctx.status = 400
+    ctx.body = { message: errorMessage, figureURL: 'https://http.cat/400' }
+    return
+  }
+
   // 请求源数据页面
-  const rawData = await fetchSource(process.env.SOURCE_URL ?? '')
+  const rawData = await fetchSource(url as URL)
   if (typeof rawData !== 'string') {
     ctx.status = 400
     ctx.body = { data: rawData, figureURL: 'https://http.cat/400' }

@@ -10,7 +10,7 @@ import path from 'node:path'
  * @param {string} url
  * @returns {string}
  */
-const fetchSource = async (url: string): Promise<string> => {
+const fetchSource = async (url: URL): Promise<string> => {
   // 验证源数据网址格式
   if (typeof url !== 'string') return ''
 
@@ -21,31 +21,22 @@ const fetchSource = async (url: string): Promise<string> => {
   return result ?? ''
 }
 
-interface item {
-  code: number
-  name: string
-}
-
-interface dataset {
-  province: item[]
-  city: item[]
-  county: item[]
-}
-
 /**
  * 解析源数据为目标数据集
  * @param payload
  * @returns
  */
-const parseRawHTML = (payload: string): dataset => {
+const parseRawHTML = (payload: string): Regions => {
   // 当前省、市、区/县级行政区
-  let province, city, county
+  let province: Province,
+    city: City,
+    county: County
 
-  // 上一条数据行政层级；province,city,county
-  let lastLevel = ''
+  // 上一条数据行政层级
+  let lastLevel: 'province' | 'city' | 'county'
 
   // 最终数据集
-  const dataset: dataset = {
+  const dataset: Regions = {
     province: [],
     city: [],
     county: []
@@ -58,7 +49,7 @@ const parseRawHTML = (payload: string): dataset => {
     const tds = $(this).find('td')
     if (tds.length === 0) return
 
-    const item: item = {
+    const item: RegionItem = {
       code: Number(tds.eq(1).text().trim()), // 代码
       name: tds.eq(2).text().trim() // 名称
     }
@@ -138,7 +129,7 @@ const parseRawHTML = (payload: string): dataset => {
   return dataset
 }
 
-const generateJSON = (payload: dataset, dir: string = 'dist', fileName: string = 'all'): any => {
+const generateJSON = (payload: Regions, dir: string = 'out', fileName: string = 'all'): any => {
   const targetDir = path.join(path.resolve(), dir)
   const paths = {
     minified: path.join(targetDir, `${fileName}.min.json`)

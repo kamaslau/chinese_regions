@@ -3,7 +3,9 @@
 ![npm](https://img.shields.io/npm/v/chinese_regions)
 ![NPM Downloads](https://img.shields.io/npm/dy/chinese_regions)
 
-中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市、市、区/县级行政区划代码及名称。港澳台地区等均已包含。
+中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市/特别行政区、市、区/县级行政区划代码及名称。
+
+香港、澳门、台湾等数据均具体到区/县级别。
 
 当前数据最后更新于 2025 年 12 月 16 日，根据[中华人民共和国民政部于 2025 年 04 月 25 日最新发布的数据](https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html)生成，一般为调整某地（或数地）行政区后进行相应更新，例如撤并、县改区、市直辖等情况。对于具体行政区划变更情况，可参见[更新日志](./CHANGE_LOG.md)
 
@@ -40,9 +42,12 @@ npm i chinese_regions
 pnpm add chinese_regions
 
 import Regions from "chinese_regions" with { type: "json" };
-console.log(Regions.province.length);
-console.log(Regions.city.length);
-console.log(Regions.county.length);
+console.log(
+  `${Regions.province?.length ?? 0} provinces, `,
+  `${Regions.city?.length ?? 0} cities, `,
+  `${Regions.county?.length ?? 0} counties, `,
+  "loaded from package chinese_regions"
+)
 ```
 
 P.S. The old 'assert' keyword has been deprecated, see https://github.com/tc39/proposal-import-attributes#history for more detail.
@@ -140,11 +145,16 @@ P.S. The old 'assert' keyword has been deprecated, see https://github.com/tc39/p
 }
 ```
 
-特别的，北京、天津、上海、重庆等直辖市的相关数据中，省、市信息是相同的；港澳台地区的部分数据中，由于民政部未发布正式数据，或暂时沿用了约定俗成的“堂区”等教源分区，省、市、区/县信息暂时也是相同的。
+特殊情形：
+
+- 对于北京、天津、上海、重庆等直辖市，以及香港、澳门等特别行政区，省、市信息是相同的；
+- 对于澳门特别行政区：由于民政部未发布正式数据，而“澳门、氹仔、路环”的地理分区略显粗放，因而采用约定俗成的“堂区”这一教源分区。
 
 此外，一些经济概念上的区域并非行政区划。例如，天府新区作为成都直辖市的直管区（如华阳街道、万安街道、兴隆街道等），虽然经济和社会事务由四川天府新区管理委员会（省级派出机构）直接进行管理，但在法理和行政区划上仍属于成都市双流区。
 
 ## 应用场景
+
+为提高开发效率，推荐将此库部署到自建 NPM 注册源。
 
 ### 前端开发
 
@@ -158,5 +168,4 @@ P.S. The old 'assert' keyword has been deprecated, see https://github.com/tc39/p
 
 适用于查询构建器等业务
 
-1. 引入 all.min.json 文件并解析为所需类型
-2. 保存数据到缓存层、持久层，或部署到组件库进行调用
+1. 保存数据到缓存层、持久层，或部署到组件库进行调用

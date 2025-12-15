@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+echo "╶ start pre-commit hook"
+
+echo "├ git remote get-url origin"
+git remote get-url origin # Check current origin
+
+echo "├ pnpm test"
+pnpm test
+
+echo "├ pnpm lint"
+pnpm lint
+
+echo "└ end pre-commit hook"

@@ -7,27 +7,26 @@ import path from 'node:path'
 
 /**
  * 获取源数据
- * @param {string} url 
+ * @param {string} url
  * @returns {string}
  */
 const fetchSource = async (url: string): Promise<string> => {
   // 验证源数据网址格式
   if (typeof url !== 'string') return ''
 
-  let result = await fetch(
+  const result = await fetch(
     url
-  ).then(res => res.text()).catch(error => console.error(error))
+  ).then(async res => await res.text()).catch(error => console.error(error))
 
   return result ?? ''
 }
 
-
-type item = {
+interface item {
   code: number
   name: string
 }
 
-type dataset = {
+interface dataset {
   province: item[]
   city: item[]
   county: item[]
@@ -35,8 +34,8 @@ type dataset = {
 
 /**
  * 解析源数据为目标数据集
- * @param payload 
- * @returns 
+ * @param payload
+ * @returns
  */
 const parseRawHTML = (payload: string): dataset => {
   // 当前省、市、区/县级行政区
@@ -46,7 +45,7 @@ const parseRawHTML = (payload: string): dataset => {
   let lastLevel = ''
 
   // 最终数据集
-  let dataset: dataset = {
+  const dataset: dataset = {
     province: [],
     city: [],
     county: []
@@ -105,7 +104,6 @@ const parseRawHTML = (payload: string): dataset => {
         p_name: item.name,
         ...item
       }
-
     } else if (isCity) {
       // 市级
       city = {
@@ -115,7 +113,6 @@ const parseRawHTML = (payload: string): dataset => {
       }
       dataset.city.push(city)
       lastLevel = 'city'
-
     } else if (isCounty) {
       // 若为直辖市、SAR下一条记录，同时补录上一条的市级记录
       if (lastLevel === 'province') {

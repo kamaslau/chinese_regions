@@ -2,20 +2,6 @@
   "name": "chinese_regions",
   "version": "0.3.1",
   "description": "中华人民共和国民政部省、市、区/县级行政区划代码及名称。港澳台地区等均已包含。当前数据最后更新于2025年5月14日，根据中华人民共和国民政部于2024年04月25日最新发布的数据生成。",
-  "engines": {
-    "node": "^24 || >=22"
-  },
-  "type": "module",
-  "main": "dist/all.min.json",
-  "scripts": {
-    "start:dev": "cross-env nodemon",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kamaslau/chinese_regions.git"
-  },
   "keywords": [
     "省市区",
     "行政区",
@@ -32,26 +18,42 @@
     "hongkong",
     "macao"
   ],
-  "author": "Kamas Lau <kamaslau@dingtalk.com>",
+  "author": "Lau, Kamas <kamaslau@dingtalk.com> (https://www.kamaslau.com/)",
   "license": "MIT",
+  "type": "module",
+  "main": "dist/all.min.json",
+  "engines": {
+    "node": "^24 || >=22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "node --env-file=.env.local --watch=.env.local --watch=pnpm-lock.yaml --watch=tsconfig.json --watch-path=./src --watch-path=./types --import=tsx src/app.ts",
+    "test": "node --test",
+    "lint": "ts-standard --fix src/**/*.ts",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@tsconfig/node24": "^24.0.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/koa": "^3.0.1",
+    "@types/node": "^25.0.2",
+    "cheerio": "1.1.2",
+    "fs-extra": "^11.3.2",
+    "husky": "^9.1.7",
+    "koa": "^3.1.1",
+    "ts-standard": "^12.0.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamaslau/chinese_regions.git"
+  },
   "bugs": {
     "url": "https://github.com/kamaslau/chinese_regions/issues"
   },
   "homepage": "https://github.com/kamaslau/chinese_regions#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "devDependencies": {
-    "@tsconfig/node24": "^24.0.1",
-    "@types/fs-extra": "^11.0.4",
-    "@types/koa": "^2.15.0",
-    "@types/node": "^24.3.0",
-    "cheerio": "1.1.2",
-    "dotenv": "^16.4.5",
-    "fs-extra": "^11.3.1",
-    "koa": "^2.15.3",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10",
-    "typescript": "^5"
   }
 }

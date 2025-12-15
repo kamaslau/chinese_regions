@@ -2,17 +2,13 @@
   "extends": "@tsconfig/node24/tsconfig.json",
   "include": ["src/**/*", "types"],
   "compilerOptions": {
-    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "typeRoots": ["node_modules/@types", "types"],
     "rootDir": "src",
     "outDir": "dist",
-    "lib": [
-      "esnext",
-      "DOM" // 'DOM' is for native fetch method
-    ],
-    "target": "esnext",
-    "types": ["node"],
-    "removeComments": true,
-    "noImplicitAny": false
+    "lib": ["esnext", "DOM"],
+    "types": ["node"]
   }
 }

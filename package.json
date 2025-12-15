@@ -27,6 +27,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "node --env-file=.env.local --import=tsx src/app.ts",
     "start:dev": "node --env-file=.env.local --watch=.env.local --watch=pnpm-lock.yaml --watch=tsconfig.json --watch-path=./src --watch-path=./types --import=tsx src/app.ts",
     "test": "node --test",
     "lint": "ts-standard --fix src/**/*.ts",

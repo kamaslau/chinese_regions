@@ -11,9 +11,6 @@ import path from 'node:path'
  * @returns {string}
  */
 const fetchSource = async (url: URL): Promise<string> => {
-  // 验证源数据网址格式
-  if (typeof url !== 'string') return ''
-
   const result = await fetch(
     url
   ).then(async res => await res.text()).catch(error => console.error(error))

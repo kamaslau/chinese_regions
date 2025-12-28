@@ -61,11 +61,44 @@ router.get('/api/province', async (ctx) => {
 router.get('/api/province/:id', async (ctx) => {
   const id = ctx.params.id
 
-  const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  const data = rawData.filter((item: Province) => String(item.code) === id)
+  const result: APIResponse = {
+    metadata: { id },
+    data: []
+  }
+
+  let memoryRecorder: APIResponse['memory'] | undefined
+  if (process.env.NODE_ENV !== 'production') {
+    memoryRecorder = { before: undefined, afterRead: undefined, afterFilter: undefined }
+    result.memory = memoryRecorder
+
+    memoryRecorder.before = {
+      rss: Math.round(process.memoryUsage().rss / 1024), // kB
+      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
+      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
+    }
+  }
+
+  const all = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  const { province: rawData } = all
+  if (memoryRecorder !== undefined) {
+    memoryRecorder.afterRead = {
+      rss: Math.round(process.memoryUsage().rss / 1024),
+      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
+      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
+    }
+  }
+
+  result.data = rawData.filter((item: Province) => String(item.code) === id)
+  if (memoryRecorder !== undefined) {
+    memoryRecorder.afterFilter = {
+      rss: Math.round(process.memoryUsage().rss / 1024),
+      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
+      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
+    }
+  }
 
   ctx.status = 200
-  ctx.body = { data, metadata: { id } }
+  ctx.body = result
 })
 
 router.get('/api/province/:id/city', async (ctx) => {

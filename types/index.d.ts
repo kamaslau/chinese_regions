@@ -23,6 +23,22 @@ declare global {
     c_code: City.code
     c_name: City.name
   }
+
+  interface MemoryUsage {
+    rss: number
+    heapTotal: number
+    heapUsed: number
+  }
+
+  interface APIResponse {
+    metadata: unknown
+    data: Province[]
+    memory?: {
+      before: MemoryUsage | undefined
+      afterRead: MemoryUsage | undefined
+      afterFilter: MemoryUsage | undefined
+    }
+  }
 }
 
 export { }

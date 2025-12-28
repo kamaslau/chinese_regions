@@ -1,6 +1,8 @@
 // External
 import Koa from 'koa'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import Router from '@koa/router'
+import fs from 'fs-extra'
+import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 // Local
@@ -29,8 +31,28 @@ app.on('error', (error, ctx): void => {
   ctx.body = { content: error.message }
 })
 
-// 业务路由
-app.use(async (ctx, next) => {
+// 创建路由实例
+const router = new Router()
+app.use(router.routes()).use(router.allowedMethods())
+
+// Category
+router.get('/', async (ctx) => {
+  ctx.body = {
+    api: 'http://localhost:3000/api',
+    parse: 'http://localhost:3000/parse'
+  }
+})
+
+// API(RESTful)
+router.get('/api', async (ctx) => {
+  const regions = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+
+  ctx.status = 200
+  ctx.body = { data: regions }
+})
+
+// 解析源数据并生成文件
+router.get('/parse', async (ctx) => {
   let url: URL | undefined
   let errorMessage: string | undefined
 
@@ -67,13 +89,10 @@ app.use(async (ctx, next) => {
 
   // 解析各特别行政区源数据
   const sars: string[] = ['macau', 'hongkong', 'taiwan']
-
   const readJSON = async (fileName: string): Promise<Regions> => {
     const absolutePath = join(dirName, 'static', `${fileName}.json`)
-    const fileUrl = pathToFileURL(absolutePath).href
-
-    const data = await import(fileUrl, { assert: { type: 'json' } })
-    return data.default as Regions
+    const data = await fs.readJSON(absolutePath)
+    return data as Regions
   }
 
   await Promise.all(sars.map(async (file) => {

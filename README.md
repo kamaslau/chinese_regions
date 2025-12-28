@@ -40,7 +40,6 @@
 ### 数据包模式
 
 ```javascript
-// pnpm
 pnpm add chinese_regions
 
 import Regions from "chinese_regions" with { type: "json" };

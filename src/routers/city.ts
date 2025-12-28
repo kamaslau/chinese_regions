@@ -1,16 +1,11 @@
 import { Router } from '@koa/router'
-import fs from 'fs-extra'
-import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
-const fileName = fileURLToPath(import.meta.url)
-const dirName = dirname(fileName)
 
 export const router = new Router()
 router.prefix('/city')
 
 // http://localhost:3000/api/city
 router.get('/', async (ctx) => {
-  const { city: rawData } = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'))
+  const { city: rawData } = ctx.dataset
 
   ctx.status = 200
   ctx.body = { data: rawData }
@@ -20,7 +15,7 @@ router.get('/', async (ctx) => {
 router.get('/:id/county', async (ctx) => {
   const id = ctx.params.id
 
-  const { county: rawData } = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'))
+  const { county: rawData } = ctx.dataset
   const data = rawData.filter((item: County) => String(item.c_code) === id)
 
   ctx.status = 200

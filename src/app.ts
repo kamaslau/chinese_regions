@@ -8,6 +8,7 @@ import { dirname, join } from 'node:path'
 // Local
 import { consoleInit, consoleStart, briefLog } from './utils.js'
 import { fetchSource, parseRawHTML, generateJSON } from './processor.js'
+import { router as apiRouter } from './routers/index.js'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const fileName = fileURLToPath(import.meta.url)
@@ -44,86 +45,7 @@ router.get('/', async (ctx) => {
 })
 
 // API(RESTful)
-router.get('/api', async (ctx) => {
-  const data = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-
-  ctx.status = 200
-  ctx.body = { data }
-})
-
-router.get('/api/province', async (ctx) => {
-  const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-
-  ctx.status = 200
-  ctx.body = { data: rawData }
-})
-
-router.get('/api/province/:id', async (ctx) => {
-  const id = ctx.params.id
-
-  const result: APIResponse = {
-    metadata: { id },
-    data: []
-  }
-
-  let memoryRecorder: APIResponse['memory'] | undefined
-  if (process.env.NODE_ENV !== 'production') {
-    memoryRecorder = { before: undefined, afterRead: undefined, afterFilter: undefined }
-    result.memory = memoryRecorder
-
-    memoryRecorder.before = {
-      rss: Math.round(process.memoryUsage().rss / 1024), // kB
-      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
-      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
-    }
-  }
-
-  const all = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  const { province: rawData } = all
-  if (memoryRecorder !== undefined) {
-    memoryRecorder.afterRead = {
-      rss: Math.round(process.memoryUsage().rss / 1024),
-      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
-      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
-    }
-  }
-
-  result.data = rawData.filter((item: Province) => String(item.code) === id)
-  if (memoryRecorder !== undefined) {
-    memoryRecorder.afterFilter = {
-      rss: Math.round(process.memoryUsage().rss / 1024),
-      heapTotal: Math.round(process.memoryUsage().heapTotal / 1024),
-      heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
-    }
-  }
-
-  ctx.status = 200
-  ctx.body = result
-})
-
-router.get('/api/province/:id/city', async (ctx) => {
-  const id = ctx.params.id
-
-  const { city: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  const data = rawData.filter((item: City) => String(item.p_code) === id)
-
-  ctx.status = 200
-  ctx.body = { data, metadata: { provinceId: id } }
-})
-
-router.get('/api/city', async (ctx) => {
-  const { city: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-
-  ctx.status = 200
-  ctx.body = { data: rawData }
-})
-
-router.get('/api/county', async (ctx) => {
-  const { county: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-
-  ctx.status = 200
-  ctx.body = { data: rawData }
-})
+router.use(apiRouter.routes(), apiRouter.allowedMethods())
 
 // 解析源数据并生成文件
 router.get('/parse', async (ctx) => {

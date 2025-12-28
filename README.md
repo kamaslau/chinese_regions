@@ -35,9 +35,11 @@
 
 ## 安装
 
+以 PNPM 作为包管理器为例：
+
+### 数据包模式
+
 ```javascript
-// npm
-npm i chinese_regions
 // pnpm
 pnpm add chinese_regions
 
@@ -50,7 +52,14 @@ console.log(
 )
 ```
 
-P.S. The old 'assert' keyword has been deprecated, see https://github.com/tc39/proposal-import-attributes#history for more detail.
+### API 服务模式
+
+```bash
+git clone https://github.com/kamaslau/chinese_regions.git
+cd chinese_regions
+pnpm i
+pnpm start
+```
 
 ## 数据结构
 

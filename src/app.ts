@@ -53,25 +53,33 @@ router.get('/api', async (ctx) => {
 
 router.get('/api/province', async (ctx) => {
   const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  // const data = rawData.filter((item: Province) => String(item.code).lastIndexOf('0000') === 2)
 
   ctx.status = 200
   ctx.body = { data: rawData }
 })
 
-// router.get('/api/province/:id', async (ctx) => {
-// const id = ctx.params.id;
-//   ctx.body = { id };
+router.get('/api/province/:id', async (ctx) => {
+  const id = ctx.params.id
 
-//   const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  const data = rawData.filter((item: Province) => String(item.code) === id)
 
-//   ctx.status = 200
-//   ctx.body = { data }
-// })
+  ctx.status = 200
+  ctx.body = { data, metadata: { id } }
+})
+
+router.get('/api/province/:id/city', async (ctx) => {
+  const id = ctx.params.id
+
+  const { city: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  const data = rawData.filter((item: City) => String(item.p_code) === id)
+
+  ctx.status = 200
+  ctx.body = { data, metadata: { provinceId: id } }
+})
 
 router.get('/api/city', async (ctx) => {
   const { city: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  // const data = rawData.filter((item: city) => String(item.code).lastIndexOf('00') === 4)
 
   ctx.status = 200
   ctx.body = { data: rawData }
@@ -79,7 +87,6 @@ router.get('/api/city', async (ctx) => {
 
 router.get('/api/county', async (ctx) => {
   const { county: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
-  // const data = rawData.filter((item: county) => String(item.code).lastIndexOf('00') === false)
 
   ctx.status = 200
   ctx.body = { data: rawData }

@@ -56,6 +56,7 @@ console.log(
 ```bash
 git clone https://github.com/kamaslau/chinese_regions.git
 cd chinese_regions
+cp .env.sample .env.local
 pnpm i
 pnpm start
 ```

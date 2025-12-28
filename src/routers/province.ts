@@ -8,6 +8,7 @@ const dirName = dirname(fileName)
 export const router = new Router()
 router.prefix('/province')
 
+// http://localhost:3000/api/province
 router.get('/', async (ctx) => {
   const { province: rawData } = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'))
   ctx.status = 200
@@ -57,6 +58,7 @@ router.get('/:id', async (ctx) => {
   ctx.body = result
 })
 
+// http://localhost:3000/api/province/370000/city
 router.get('/:id/city', async (ctx) => {
   const id = ctx.params.id
 

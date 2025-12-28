@@ -45,10 +45,44 @@ router.get('/', async (ctx) => {
 
 // API(RESTful)
 router.get('/api', async (ctx) => {
-  const regions = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  const data = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
 
   ctx.status = 200
-  ctx.body = { data: regions }
+  ctx.body = { data }
+})
+
+router.get('/api/province', async (ctx) => {
+  const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  // const data = rawData.filter((item: Province) => String(item.code).lastIndexOf('0000') === 2)
+
+  ctx.status = 200
+  ctx.body = { data: rawData }
+})
+
+// router.get('/api/province/:id', async (ctx) => {
+// const id = ctx.params.id;
+//   ctx.body = { id };
+
+//   const { province: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+
+//   ctx.status = 200
+//   ctx.body = { data }
+// })
+
+router.get('/api/city', async (ctx) => {
+  const { city: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  // const data = rawData.filter((item: city) => String(item.code).lastIndexOf('00') === 4)
+
+  ctx.status = 200
+  ctx.body = { data: rawData }
+})
+
+router.get('/api/county', async (ctx) => {
+  const { county: rawData } = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'))
+  // const data = rawData.filter((item: county) => String(item.code).lastIndexOf('00') === false)
+
+  ctx.status = 200
+  ctx.body = { data: rawData }
 })
 
 // 解析源数据并生成文件

@@ -56,10 +56,20 @@ console.log(
 ```bash
 git clone https://github.com/kamaslau/chinese_regions.git
 cd chinese_regions
-cp .env.sample .env.local
+cp .env.sample .env.local # 可在此配置服务端口
 pnpm i
 pnpm start
 ```
+#### 服务端点
+
+以下以使用 **3000** 端口进行服务为例：
+
+- **GET /api** http://localhost:3000/api 全量数据，可用于数据导入等ETL场景
+  - **GET /province** http://localhost:3000/api/province 全部省级行政区列表（含省、自治区、直辖市、特别行政区等）
+    - **GET /:id/city** http://localhost:3000/api/province/370000/city 省级行政区（id 为该行政区代码）下辖的市级行政区列表
+  - **GET /city** http://localhost:3000/api/city 全部市级行政区列表
+    - **GET /:id/county** http://localhost:3000/api/city/370200/county 市级行政区（id 为该行政区代码）下辖的区县级行政区列表
+  - **GET /county** http://localhost:3000/api/county 全部区县级行政区列表
 
 ## 数据结构
 

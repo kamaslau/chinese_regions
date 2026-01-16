@@ -34,10 +34,10 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@tsconfig/node24": "^24.0.3",
+    "@tsconfig/node24": "^24.0.4",
     "@types/fs-extra": "^11.0.4",
     "@types/koa": "^3.0.1",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.9",
     "cheerio": "1.1.2",
     "husky": "^9.1.7",
     "ts-standard": "^12.0.2",
@@ -56,7 +56,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@koa/router": "^15.1.1",
+    "@koa/router": "^15.2.0",
     "fs-extra": "^11.3.3",
     "koa": "^3.1.1"
   }

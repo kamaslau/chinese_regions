@@ -1,43 +1,39 @@
 # chinese_regions
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![GitHub top language](https://img.shields.io/github/languages/top/kamaslau/chinese_regions)
+![Node Current](https://img.shields.io/node/v/chinese_regions)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/kamaslau/chinese_regions)
+![Last Github Commit](https://img.shields.io/github/last-commit/kamaslau/chinese_regions)
+![Repository size](https://img.shields.io/github/repo-size/kamaslau/chinese_regions?color=56BEB8)
 ![npm](https://img.shields.io/npm/v/chinese_regions)
-![NPM Downloads](https://img.shields.io/npm/dy/chinese_regions)
+![NPM Downloads](https://img.shields.io/npm/d18m/chinese_regions)
+![GitHub Repo stars](https://img.shields.io/github/stars/kamaslau/chinese_regions)
 
-中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市/特别行政区、市、区/县级行政区划代码及名称。
+中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市/特别行政区、市、区/县级行政区划代码及名称；香港、澳门、台湾等地区数据均具体到区/县级别。
 
-香港、澳门、台湾等数据均具体到区/县级别。
+当前数据最后更新于 2026 年 01 月 30 日，根据[中华人民共和国民政部于 2025 年 04 月 25 日最新发布的数据](https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html)生成，一般为发生某地（或数地）行政区划调整后进行相应更新，如撤并、县改区、市直辖等。对于具体行政区划变更情况，可参见[更新日志](./CHANGE_LOG.md)
 
-当前数据最后更新于 2025 年 12 月 16 日，根据[中华人民共和国民政部于 2025 年 04 月 25 日最新发布的数据](https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html)生成，一般为调整某地（或数地）行政区后进行相应更新，例如撤并、县改区、市直辖等情况。对于具体行政区划变更情况，可参见[更新日志](./CHANGE_LOG.md)
+## 关于港澳台地区
 
-## 港澳台地区
+以下为民政部原始公示数据中未包含的行政区数据来源。
 
-### 澳门特别行政区
+- 澳门特别行政区
+  - [澳門特別行政區政府入口網站 – 澳門特別行政區政府入口網站](https://www.gov.mo/zh-hant/)
+  - [中央政府驻澳门联络办公室](https://www.zlb.gov.cn/)
+- 香港特别行政区
+  - [GovHK 香港政府一站通：本港居民(主页)](https://www.gov.hk/sc/residents/)
+  - [中央政府驻港联络办 - 中央人民政府驻香港特别行政区联络办公室](http://www.locpg.gov.cn/)
+- 台湾省
+  - [台湾基本情况\_中国政府网](https://www.gov.cn/guoqing/2020-07/28/content_5530577.htm)
+  - [我的 E 政府](https://www.gov.tw/)
+  - [中華民國 內政部戶政司 全球資訊網](https://www.ris.gov.tw/)
 
-数据来源
-
-- [澳門特別行政區政府入口網站 – 澳門特別行政區政府入口網站](https://www.gov.mo/zh-hant/)
-- [中央政府驻澳门联络办公室](https://www.zlb.gov.cn/)
-
-### 香港特别行政区
-
-数据来源
-
-- [GovHK 香港政府一站通：本港居民(主页)](https://www.gov.hk/sc/residents/)
-- [中央政府驻港联络办 - 中央人民政府驻香港特别行政区联络办公室](http://www.locpg.gov.cn/)
-
-### 台湾省
-
-数据来源
-
-- [台湾基本情况\_中国政府网](https://www.gov.cn/guoqing/2020-07/28/content_5530577.htm)
-- [我的 E 政府](https://www.gov.tw/)
-- [中華民國 內政部戶政司 全球資訊網](https://www.ris.gov.tw/)
-
-## 安装
+## 使用说明
 
 以 PNPM 作为包管理器为例：
 
-### 数据包模式
+### A. 数据包模式
 
 ```javascript
 pnpm add chinese_regions
@@ -51,7 +47,7 @@ console.log(
 )
 ```
 
-### API 服务模式
+### B. API 服务模式
 
 ```bash
 git clone https://github.com/kamaslau/chinese_regions.git
@@ -60,50 +56,37 @@ cp .env.sample .env.local # 可在此配置服务端口
 pnpm i
 pnpm start
 ```
-#### 服务端点
 
-以下以使用 **3000** 端口进行服务为例：
+以通过 **3000** 端口（即 `.env.sample` 中既有的默认配置）进行服务为例，可相应路径如下：
 
 - **GET /api** http://localhost:3000/api 全量数据，可用于数据导入等ETL场景
   - **GET /province** http://localhost:3000/api/province 全部省级行政区列表（含省、自治区、直辖市、特别行政区等）
-    - **GET /:id/city** http://localhost:3000/api/province/370000/city 省级行政区（id 为该行政区代码）下辖的市级行政区列表
+    - **GET /:id/city** http://localhost:3000/api/province/370000/city 特定省级行政区（id 为该行政区代码）下辖的市级行政区列表
   - **GET /city** http://localhost:3000/api/city 全部市级行政区列表
-    - **GET /:id/county** http://localhost:3000/api/city/370200/county 市级行政区（id 为该行政区代码）下辖的区县级行政区列表
+    - **GET /:id/county** http://localhost:3000/api/city/370200/county 特定市级行政区（id 为该行政区代码）下辖的区县级行政区列表
   - **GET /county** http://localhost:3000/api/county 全部区县级行政区列表
 
 ## 数据结构
 
-```json
-{
-  // 省级数据集
-  "province": [
-    {
-      "code": 370000, // 当前行政区划代码
-      "name": "山东省" // 当前行政区划名称
-    }
-  ],
-  // 市级数据集
-  "city": [
-    {
-      "p_code": 370000, // 所属省级行政区划代码
-      "p_name": "山东省", // 所属省级行政区划名称
-      "code": 370200,
-      "name": "青岛市"
-    }
-  ],
-  // 区县级数据集
-  "county": [
-    {
-      "p_code": 370000,
-      "p_name": "山东省",
-      "c_code": 370200, // 所属市级行政区划代码
-      "c_name": "青岛市", // 所属市级行政区划代码
-      "code": 370202,
-      "name": "市南区"
-    }
-  ]
-}
+```txt
+┌ "province" // 省级数据集
+│├ "code": number, // 当前行政区划代码，下同
+│└ "name": string // 当前行政区划名称，下同
+├ "city" // 市级数据集
+│├ "p_code": number, // 所属省级行政区划代码，下同
+│├ "p_name": string, // 所属省级行政区划名称，下同
+│├ "code": number,
+│└ "name": string
+└ "county" // 区县级数据集
+ ├ "p_code": number,
+ ├ "p_name": string,
+ ├ "c_code": number, // 所属市级行政区划代码
+ ├ "c_name": string, // 所属市级行政区划代码
+ ├ "code": number,
+ └ "name": string
 ```
+
+### 数据样例
 
 以山东省青岛市相关的部分数据为例：
 

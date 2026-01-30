@@ -37,12 +37,17 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/fs-extra": "^11.0.4",
     "@types/koa": "^3.0.1",
-    "@types/node": "^25.0.9",
-    "cheerio": "1.1.2",
+    "@types/node": "^25.1.0",
+    "cheerio": "1.2.0",
     "husky": "^9.1.7",
     "ts-standard": "^12.0.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@koa/router": "^15.3.0",
+    "fs-extra": "^11.3.3",
+    "koa": "^3.1.1"
   },
   "repository": {
     "type": "git",
@@ -54,10 +59,5 @@
   "homepage": "https://github.com/kamaslau/chinese_regions#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "@koa/router": "^15.2.0",
-    "fs-extra": "^11.3.3",
-    "koa": "^3.1.1"
   }
 }

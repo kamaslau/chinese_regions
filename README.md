@@ -10,24 +10,27 @@
 ![NPM Downloads](https://img.shields.io/npm/d18m/chinese_regions)
 ![GitHub Repo stars](https://img.shields.io/github/stars/kamaslau/chinese_regions)
 
-中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市/特别行政区、市、区/县级行政区划代码及名称；香港、澳门、台湾等地区数据均具体到区/县级别。
+中华人民共和国民政部区划地名司官方公布的行政区划信息数据，含省/直辖市/特别行政区、市、区/县级行政区划代码及名称；[香港、澳门、台湾等地区](#关于港澳台地区)数据均已精确到区/县级别。
 
-当前数据最后更新于 2026 年 01 月 30 日，根据[中华人民共和国民政部于 2025 年 04 月 25 日最新发布的数据](https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html)生成，一般为发生某地（或数地）行政区划调整后进行相应更新，如撤并、县改区、市直辖等。对于具体行政区划变更情况，可参见[更新日志](./CHANGE_LOG.md)
+当前数据最后更新于 2026 年 02 月 20 日，根据[中华人民共和国民政部于 2025 年 04 月 25 日最新发布的数据](https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html)生成，一般为发生某地（或数地）行政区划调整后进行相应更新，如撤并、县改区、市直辖等。对于具体行政区划变更情况，可参见[更新日志](./CHANGE_LOG.md)
 
-## 关于港澳台地区
+## 应用场景
 
-以下为民政部原始公示数据中未包含的行政区数据来源。
+为提高全栈开发效率，可将将此库部署到自建 NPM 注册源。
 
-- 澳门特别行政区
-  - [澳門特別行政區政府入口網站 – 澳門特別行政區政府入口網站](https://www.gov.mo/zh-hant/)
-  - [中央政府驻澳门联络办公室](https://www.zlb.gov.cn/)
-- 香港特别行政区
-  - [GovHK 香港政府一站通：本港居民(主页)](https://www.gov.hk/sc/residents/)
-  - [中央政府驻港联络办 - 中央人民政府驻香港特别行政区联络办公室](http://www.locpg.gov.cn/)
-- 台湾省
-  - [台湾基本情况\_中国政府网](https://www.gov.cn/guoqing/2020-07/28/content_5530577.htm)
-  - [我的 E 政府](https://www.gov.tw/)
-  - [中華民國 內政部戶政司 全球資訊網](https://www.ris.gov.tw/)
+### 前端开发
+
+适用于级联选择器等组件，推荐部署到 CDN。
+
+1. 输出并选择 province 键下的省级行政区
+2. 根据 province 值输出 city 键下的市级行政区
+3. 根据 city 值输出 county 键下的区/县级行政区
+
+### 后端开发
+
+适用于查询构建器等业务
+
+1. 保存数据到缓存层、持久层，或部署到组件库进行调用
 
 ## 使用说明
 
@@ -35,16 +38,197 @@
 
 ### A. 数据包模式
 
-```javascript
+```bash
 pnpm add chinese_regions
+```
 
+```typescript
 import Regions from "chinese_regions" with { type: "json" };
 console.log(
   `${Regions.province?.length ?? 0} provinces, `,
   `${Regions.city?.length ?? 0} cities, `,
   `${Regions.county?.length ?? 0} counties, `,
-  "loaded from package chinese_regions"
-)
+  "loaded from package chinese_regions",
+);
+```
+
+#### Next.js/React.js 组件示例
+
+```json
+{
+  "dependencies": {
+    "tailwindcss": "^4.2.0"
+  }
+}
+```
+
+```typescript
+// RegionSelector.tsx
+// Author: Lau, Kamas
+// CreatedAt: 2026-02-20
+// Use with:
+// import RegionSelector from "@/components/RegionSelector";
+// <RegionSelector />
+
+"use client";
+
+import { useState, useMemo } from "react";
+import { province, city, county } from "chinese_regions" with { type: "json" }; // https://www.npmjs.com/package/chinese_regions
+
+export default function RegionSelector() {
+  console.log(
+    `${province.length ?? 0} provinces, `,
+    `${city.length ?? 0} cities, `,
+    `${county.length ?? 0} counties, `,
+    "loaded from package chinese_regions",
+  );
+
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCounty, setSelectedCounty] = useState("");
+
+  // 市选项：根据省筛选
+  const cityOptions = useMemo(() => {
+    if (!selectedProvince) return [];
+    const code = Number(selectedProvince);
+    return (city ?? []).filter((item) => item.p_code === code);
+  }, [selectedProvince]);
+
+  // 县选项：根据市筛选，没有选市时返回空数组
+  const countyOptions = useMemo(() => {
+    if (!selectedCity) return [];
+    const code = Number(selectedCity);
+    const filtered = (county ?? []).filter((item) => item.c_code === code);
+    // 排序：区 → 市 → 县 → 旗
+    return filtered.sort((a, b) => {
+      const order: Record<string, number> = { 区: 1, 市: 2, 县: 3, 旗: 4 };
+      return (order[a.name.slice(-1)] || 99) - (order[b.name.slice(-1)] || 99);
+    });
+  }, [selectedCity]);
+
+  const handleProvinceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedProvince(value);
+    setSelectedCity("");
+    setSelectedCounty("");
+    console.log("province selected: ", value);
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedCity(value);
+    setSelectedCounty("");
+    console.log("city selected: ", value);
+  };
+
+  const handleCountyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedCounty(value);
+    console.log("county selected: ", value);
+  };
+
+  if (!province.length || !city.length || !county.length) {
+    return <div className="text-red-500">Failed to load region data.</div>;
+  }
+
+  return (
+    <fieldset className="flex flex-col gap-2">
+      <legend className="sr-only">选择地区</legend>
+
+      <div className="w-full md:w-1/2 flex items-center justify-between gap-4">
+        <div className="input-group flex-1 my-0!">
+          <label htmlFor="province">省</label>
+
+          <select
+            name="province"
+            id="province"
+            className="w-full border rounded px-2 py-1"
+            required
+            onChange={handleProvinceChange}
+          >
+            <option key="province-default" selected={selectedProvince === ""}>
+              请选择
+            </option>
+
+            {province.map((item, index) => {
+              return (
+                <option key={`province-${index}`} value={item.code}>
+                  {item.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        <div className="input-group flex-1 my-0!">
+          <label htmlFor="city">市</label>
+
+          <select
+            name="city"
+            id="city"
+            className="w-full border rounded px-2 py-1"
+            required
+            disabled={!selectedProvince}
+            onChange={handleCityChange}
+          >
+            <option key="city-default" selected={selectedCity === ""}>
+              请选择
+            </option>
+
+            {cityOptions.map((item, index) => {
+              return (
+                <option key={`city-${index}`} value={item.code}>
+                  {item.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        <div className="input-group flex-1 my-0!">
+          <label htmlFor="county">区/县</label>
+
+          <select
+            name="county"
+            id="county"
+            className="w-full border rounded px-2 py-1"
+            required
+            disabled={!selectedCity}
+            onChange={handleCountyChange}
+          >
+            <option key="county-default" selected={selectedCounty === ""}>
+              请选择
+            </option>
+
+            {countyOptions.map((item, index) => {
+              return (
+                <option key={`county-${index}`} value={item.code}>
+                  {item.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      </div>
+
+      <div className="input-group">
+        <label htmlFor="street">详细地址</label>
+
+        <textarea
+          name="street"
+          id="street"
+          className="border rounded px-2 py-1"
+          placeholder="街道、路名、小区名、楼号、单元号、门牌号等"
+          rows={3}
+          required
+          autoComplete="street-address"
+          disabled={!selectedProvince || !selectedCity || !selectedCounty}
+        />
+      </div>
+    </fieldset>
+  );
+}
+
 ```
 
 ### B. API 服务模式
@@ -154,20 +338,17 @@ pnpm start
 
 此外，一些经济概念上的区域并非行政区划。例如，天府新区作为成都直辖市的直管区（如华阳街道、万安街道、兴隆街道等），虽然经济和社会事务由四川天府新区管理委员会（省级派出机构）直接进行管理，但在法理和行政区划上仍属于成都市双流区。
 
-## 应用场景
+## 关于港澳台地区
 
-为提高开发效率，推荐将此库部署到自建 NPM 注册源。
+以下为民政部原始公示数据中未包含的行政区数据来源。
 
-### 前端开发
-
-适用于级联选择器等组件，推荐部署到 CDN。
-
-1. 输出并选择 province 键下的省级行政区
-2. 根据 province 值输出 city 键下的市级行政区
-3. 根据 city 值输出 county 键下的区/县级行政区
-
-### 后端开发
-
-适用于查询构建器等业务
-
-1. 保存数据到缓存层、持久层，或部署到组件库进行调用
+- 澳门特别行政区
+  - [澳門特別行政區政府入口網站 – 澳門特別行政區政府入口網站](https://www.gov.mo/zh-hant/)
+  - [中央政府驻澳门联络办公室](https://www.zlb.gov.cn/)
+- 香港特别行政区
+  - [GovHK 香港政府一站通：本港居民(主页)](https://www.gov.hk/sc/residents/)
+  - [中央政府驻港联络办 - 中央人民政府驻香港特别行政区联络办公室](http://www.locpg.gov.cn/)
+- 台湾省
+  - [台湾基本情况\_中国政府网](https://www.gov.cn/guoqing/2020-07/28/content_5530577.htm)
+  - [我的 E 政府](https://www.gov.tw/)
+  - [中華民國 內政部戶政司 全球資訊網](https://www.ris.gov.tw/)

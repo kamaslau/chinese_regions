@@ -37,7 +37,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/fs-extra": "^11.0.4",
     "@types/koa": "^3.0.1",
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.3.0",
     "cheerio": "1.2.0",
     "husky": "^9.1.7",
     "ts-standard": "^12.0.2",

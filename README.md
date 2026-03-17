@@ -1,6 +1,6 @@
 # chinese_regions
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![GitHub top language](https://img.shields.io/github/languages/top/kamaslau/chinese_regions)
 ![Node Current](https://img.shields.io/node/v/chinese_regions)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/kamaslau/chinese_regions)
@@ -34,7 +34,7 @@
 
 ## 使用说明
 
-以 PNPM 作为包管理器为例：
+以使用 PNPM 作为包管理器为例：
 
 ### A. 数据包模式
 
@@ -54,7 +54,7 @@ console.log(
 
 #### Next.js/React.js 组件示例
 
-```json
+```json title="./package.json"
 {
   "dependencies": {
     "tailwindcss": "^4.2.0"
@@ -62,7 +62,7 @@ console.log(
 }
 ```
 
-```typescript
+```typescript title="./src/components/RegionSelector.tsx"
 // RegionSelector.tsx
 // Author: Lau, Kamas
 // CreatedAt: 2026-02-20
@@ -334,9 +334,9 @@ pnpm start
 特殊情形：
 
 - 对于北京、天津、上海、重庆等直辖市，以及香港、澳门等特别行政区，省、市信息是相同的；
-- 对于澳门特别行政区：由于民政部未发布正式数据，而“澳门、氹仔、路环”的地理分区略显粗放，因而采用约定俗成的“堂区”这一教源分区。
+- 对于澳门特别行政区,由于民政部未发布正式数据，而“澳门、氹仔、路环”的地理分区略显粗放，因而采用约定俗成的“堂区”这一教源分区。
 
-此外，一些经济概念上的区域并非行政区划。例如，天府新区作为成都直辖市的直管区（如华阳街道、万安街道、兴隆街道等），虽然经济和社会事务由四川天府新区管理委员会（省级派出机构）直接进行管理，但在法理和行政区划上仍属于成都市双流区。
+此外，一些经济概念上的区域并非行政区划。例如，[成都市天府新区](https://cdstfxq.sczwfw.gov.cn/)作为四川省成都市的直管区（如华阳街道、万安街道、兴隆街道等），虽然经济和社会事务由四川省天府新区管理委员会（省级派出机构）直接进行管理，但在行政区划上仍属于成都市双流区。
 
 ## 关于港澳台地区
 

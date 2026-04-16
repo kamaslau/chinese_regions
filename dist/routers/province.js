@@ -1,13 +1,9 @@
 import { Router } from '@koa/router';
-import fs from 'fs-extra';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-const fileName = fileURLToPath(import.meta.url);
-const dirName = dirname(fileName);
 export const router = new Router();
 router.prefix('/province');
+// http://localhost:3000/api/province
 router.get('/', async (ctx) => {
-    const { province: rawData } = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'));
+    const { province: rawData } = ctx.dataset;
     ctx.status = 200;
     ctx.body = { data: rawData };
 });
@@ -27,7 +23,7 @@ router.get('/:id', async (ctx) => {
             heapUsed: Math.round(process.memoryUsage().heapUsed / 1024)
         };
     }
-    const all = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'));
+    const all = ctx.dataset;
     const { province: rawData } = all;
     if (memoryRecorder !== undefined) {
         memoryRecorder.afterRead = {
@@ -47,9 +43,10 @@ router.get('/:id', async (ctx) => {
     ctx.status = 200;
     ctx.body = result;
 });
+// http://localhost:3000/api/province/370000/city
 router.get('/:id/city', async (ctx) => {
     const id = ctx.params.id;
-    const { city: rawData } = await fs.readJSON(join(dirName, '..', '..', 'out', 'all.min.json'));
+    const { city: rawData } = ctx.dataset;
     const data = rawData.filter((item) => String(item.p_code) === id);
     ctx.status = 200;
     ctx.body = { data, metadata: { provinceId: id } };

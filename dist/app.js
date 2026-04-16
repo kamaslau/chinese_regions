@@ -24,6 +24,17 @@ app.on('error', (error, ctx) => {
     ctx.status = error.code ?? 501;
     ctx.body = { content: error.message };
 });
+// 预加载数据集到 app.context
+const dataset = await fs.readJSON(join(dirName, '..', 'out', 'all.min.json'));
+if (Object.keys(dataset).length === 0) {
+    console.warn('Dataset not loaded into app.context.dataset');
+}
+else {
+    app.context.dataset = dataset;
+    if (isDev) {
+        console.log('Dataset loaded into app.context.dataset: ', `${dataset.province?.length} provinces\n`, `${dataset.city?.length} cities\n`, `${dataset.county?.length} counties`);
+    }
+}
 // 创建路由实例
 const router = new Router();
 app.use(router.routes()).use(router.allowedMethods());
@@ -86,6 +97,8 @@ router.get('/parse', async (ctx) => {
             data.county?.length > 0 && dataset.county.push(...data.county);
         }).catch(error => console.error(error));
     }));
+    // 将数据集写入 app.context
+    app.context.dataset = dataset;
     // 生成可用文件
     const files = generateJSON(dataset);
     // 输出业务摘要

@@ -36,8 +36,8 @@
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
     "@types/fs-extra": "^11.0.4",
-    "@types/koa": "^3.0.1",
-    "@types/node": "^25.5.0",
+    "@types/koa": "^3.0.2",
+    "@types/node": "^25.6.0",
     "cheerio": "1.2.0",
     "husky": "^9.1.7",
     "ts-standard": "^12.0.2",
@@ -47,7 +47,7 @@
   "dependencies": {
     "@koa/router": "^15.4.0",
     "fs-extra": "^11.3.4",
-    "koa": "^3.1.2"
+    "koa": "^3.2.0"
   },
   "repository": {
     "type": "git",

@@ -44,6 +44,8 @@ pnpm add chinese_regions
 
 ```typescript
 import Regions from "chinese_regions" with { type: "json" };
+// import Regions from "chinese_regions"; // 若 tsconfig.json 中已配置 "resolveJsonModule": true
+
 console.log(
   `${Regions.province?.length ?? 0} provinces, `,
   `${Regions.city?.length ?? 0} cities, `,

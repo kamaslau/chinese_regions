@@ -23,7 +23,7 @@
   "type": "module",
   "main": "out/all.min.json",
   "engines": {
-    "node": "^24 || >=22"
+    "node": "^26 || >=22"
   },
   "scripts": {
     "build": "tsc",
@@ -36,18 +36,18 @@
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
     "@types/fs-extra": "^11.0.4",
-    "@types/koa": "^3.0.2",
-    "@types/node": "^25.6.0",
+    "@types/koa": "^3.0.3",
+    "@types/node": "^25.9.3",
     "cheerio": "1.2.0",
     "husky": "^9.1.7",
     "ts-standard": "^12.0.2",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@koa/router": "^15.4.0",
-    "fs-extra": "^11.3.4",
-    "koa": "^3.2.0"
+    "@koa/router": "^15.6.0",
+    "fs-extra": "^11.3.5",
+    "koa": "^3.2.1"
   },
   "repository": {
     "type": "git",

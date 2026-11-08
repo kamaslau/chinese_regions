@@ -1,6 +1,9 @@
+# Misc
 .DS_Store
-node_modules
 
 # Env files
 .env*
 !.env.example
+
+# Node.js
+node_modules

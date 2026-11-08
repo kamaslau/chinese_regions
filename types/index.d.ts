@@ -15,13 +15,13 @@ declare global {
   interface Province extends RegionItem { }
 
   interface City extends Province {
-    p_code: Province.code
-    p_name: Province.name
+    p_code: Province['code']
+    p_name: Province['name']
   }
 
   interface County extends City {
-    c_code: City.code
-    c_name: City.name
+    c_code: City['code']
+    c_name: City['name']
   }
 
   interface MemoryUsage {

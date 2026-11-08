@@ -23,6 +23,21 @@ const periods: timePeriods = {
   _y366d: 31622400
 }
 
+interface LocalIP {
+  address: string
+  family: string
+  internal: boolean
+}
+
+interface ClientRequest {
+  headers: Record<string, string | string[] | undefined>
+  connection: {
+    remoteAddress?: string
+    socket?: { remoteAddress?: string }
+  }
+  socket: { remoteAddress?: string }
+}
+
 /**
  * 获取当前时间戳
  *
@@ -45,10 +60,10 @@ const getTimeString = (locale: string = process.env.LOCALE ?? 'en-US'): string =
 const getLocalIP = (
   internal: boolean | undefined = undefined,
   family: string[] = ['IPv4', 'IPv6']
-): any[] => {
+): LocalIP[] => {
   // console.log('getLocalIP: ', internal, family)
 
-  const result: any[] = []
+  const result: LocalIP[] = []
 
   const interfaces = os.networkInterfaces()
 
@@ -92,7 +107,7 @@ const getLocalIP = (
  * @param req
  * @returns {string} IP地址
  */
-const getClientIP = (req: any): string => {
+const getClientIP = (req: ClientRequest): string => {
   // console.log('getClientIP: ', req)
 
   // 判断是否有反向代理 IP
@@ -100,10 +115,10 @@ const getClientIP = (req: any): string => {
     req.headers['x-real-ip'] ??
     req.connection.remoteAddress ?? // 判断 connection 的远程 IP
     req.socket.remoteAddress ?? // 判断后端的 socket 的 IP
-    req.connection.socket.remoteAddress ?? ''
+    req.connection.socket?.remoteAddress ?? ''
 
   // console.log('result: ', result)
-  return result
+  return typeof result === 'string' ? result : result.join(',')
 }
 
 /**
@@ -133,10 +148,12 @@ const consoleStart = (graphqlPath: undefined | string = undefined): void => {
     '\x1b[32m%s\x1b[33m',
     'Root    ', `http://localhost:${serverPort}`
   )
-  typeof graphqlPath === 'string' && console.log(
-    '\x1b[32m%s\x1b[33m%s\x1b[0m',
-    'GraphQL  ', `http://localhost:${serverPort}${graphqlPath}\n`
-  )
+  if (typeof graphqlPath === 'string') {
+    console.log(
+      '\x1b[32m%s\x1b[33m%s\x1b[0m',
+      'GraphQL  ', `http://localhost:${serverPort}${graphqlPath}\n`
+    )
+  }
 
   // 输出本地IP
   const localIPs = getLocalIP(undefined, ['IPv4'])
@@ -145,10 +162,12 @@ const consoleStart = (graphqlPath: undefined | string = undefined): void => {
       '\x1b[32m%s\x1b[33m',
       'Root    ', `http://${item.address as string}:${serverPort as string} (${item.internal === true ? 'local' : 'external'})`
     )
-    typeof graphqlPath === 'string' && console.log(
-      '\x1b[32m%s\x1b[33m%s\x1b[0m',
-      'GraphQL  ', `http://${item.address as string}:${serverPort as string}${graphqlPath} (${item.internal === true ? 'local' : 'external'})\n`
-    )
+    if (typeof graphqlPath === 'string') {
+      console.log(
+        '\x1b[32m%s\x1b[33m%s\x1b[0m',
+        'GraphQL  ', `http://${item.address as string}:${serverPort as string}${graphqlPath} (${item.internal === true ? 'local' : 'external'})\n`
+      )
+    }
   })
 
   console.log(
@@ -156,7 +175,7 @@ const consoleStart = (graphqlPath: undefined | string = undefined): void => {
   )
 }
 
-const briefLog = async (ctx: Koa.Context, next: () => Promise<any>): Promise<void> => {
+const briefLog = async (ctx: Koa.Context, next: () => Promise<unknown>): Promise<void> => {
   // 按需开启不同测试信息的输出
   // console.log('ctx.req(node req): ', ctx.req)
   // console.log('ctx.request: ', ctx.request)

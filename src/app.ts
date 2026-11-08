@@ -73,7 +73,7 @@ router.get('/parse', async (ctx) => {
   } else {
     try {
       url = new URL(process.env.SOURCE_URL)
-    } catch (error) {
+    } catch {
       errorMessage = 'SOURCE_URL 不符合 URL 格式'
     }
   }
@@ -90,8 +90,8 @@ router.get('/parse', async (ctx) => {
     ctx.status = 400
     ctx.body = { data: rawData, figureURL: 'https://http.cat/400' }
     return
-  } else {
-    isDev && console.log('Source fetched')
+  } else if (isDev) {
+    console.log('Source fetched')
     // console.log('rawData: ', rawData)
   }
 
@@ -117,9 +117,9 @@ router.get('/parse', async (ctx) => {
       )
 
       // 合并数据集入 dataset
-      data.province?.length > 0 && dataset.province.push(...data.province)
-      data.city?.length > 0 && dataset.city.push(...data.city)
-      data.county?.length > 0 && dataset.county.push(...data.county)
+      if (data.province?.length) dataset.province.push(...data.province)
+      if (data.city?.length) dataset.city.push(...data.city)
+      if (data.county?.length) dataset.county.push(...data.county)
     }).catch(error => console.error(error))
   }))
 

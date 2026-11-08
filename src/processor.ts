@@ -126,7 +126,7 @@ const parseRawHTML = (payload: string): Regions => {
   return dataset
 }
 
-const generateJSON = (payload: Regions, dir: string = 'out', fileName: string = 'all'): any => {
+const generateJSON = (payload: Regions, dir: string = 'out', fileName: string = 'all'): { minified: string } => {
   const targetDir = path.join(path.resolve(), dir)
   const paths = {
     minified: path.join(targetDir, `${fileName}.min.json`)

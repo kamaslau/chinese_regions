@@ -58,7 +58,7 @@ router.get('/parse', async (ctx) => {
         try {
             url = new URL(process.env.SOURCE_URL);
         }
-        catch (error) {
+        catch {
             errorMessage = 'SOURCE_URL 不符合 URL 格式';
         }
     }
@@ -74,8 +74,8 @@ router.get('/parse', async (ctx) => {
         ctx.body = { data: rawData, figureURL: 'https://http.cat/400' };
         return;
     }
-    else {
-        isDev && console.log('Source fetched');
+    else if (isDev) {
+        console.log('Source fetched');
         // console.log('rawData: ', rawData)
     }
     // 解析大陆行政区源数据
@@ -92,9 +92,12 @@ router.get('/parse', async (ctx) => {
         await readJSON(file).then((data) => {
             console.log(`${file} contains: `, `${data.province?.length ?? 0} provinces`, `${data.city?.length ?? 0} cities`, `${data.county?.length ?? 0} counties`);
             // 合并数据集入 dataset
-            data.province?.length > 0 && dataset.province.push(...data.province);
-            data.city?.length > 0 && dataset.city.push(...data.city);
-            data.county?.length > 0 && dataset.county.push(...data.county);
+            if (data.province?.length)
+                dataset.province.push(...data.province);
+            if (data.city?.length)
+                dataset.city.push(...data.city);
+            if (data.county?.length)
+                dataset.county.push(...data.county);
         }).catch(error => console.error(error));
     }));
     // 将数据集写入 app.context

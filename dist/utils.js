@@ -71,9 +71,9 @@ const getClientIP = (req) => {
         req.headers['x-real-ip'] ??
         req.connection.remoteAddress ?? // 判断 connection 的远程 IP
         req.socket.remoteAddress ?? // 判断后端的 socket 的 IP
-        req.connection.socket.remoteAddress ?? '';
+        req.connection.socket?.remoteAddress ?? '';
     // console.log('result: ', result)
-    return result;
+    return typeof result === 'string' ? result : result.join(',');
 };
 /**
  * 输出程序初始化信息
@@ -90,12 +90,16 @@ const consoleStart = (graphqlPath = undefined) => {
     const serverPort = process.env.PORT ?? 3000;
     console.log('\x1b[32m%s\x1b[0m', `\n👂 Koa.js w/ ${process.env.ER_ENGINE} now listening on ${serverPort} at:\n`);
     console.log('\x1b[32m%s\x1b[33m', 'Root    ', `http://localhost:${serverPort}`);
-    typeof graphqlPath === 'string' && console.log('\x1b[32m%s\x1b[33m%s\x1b[0m', 'GraphQL  ', `http://localhost:${serverPort}${graphqlPath}\n`);
+    if (typeof graphqlPath === 'string') {
+        console.log('\x1b[32m%s\x1b[33m%s\x1b[0m', 'GraphQL  ', `http://localhost:${serverPort}${graphqlPath}\n`);
+    }
     // 输出本地IP
     const localIPs = getLocalIP(undefined, ['IPv4']);
     localIPs.forEach(item => {
         console.log('\x1b[32m%s\x1b[33m', 'Root    ', `http://${item.address}:${serverPort} (${item.internal === true ? 'local' : 'external'})`);
-        typeof graphqlPath === 'string' && console.log('\x1b[32m%s\x1b[33m%s\x1b[0m', 'GraphQL  ', `http://${item.address}:${serverPort}${graphqlPath} (${item.internal === true ? 'local' : 'external'})\n`);
+        if (typeof graphqlPath === 'string') {
+            console.log('\x1b[32m%s\x1b[33m%s\x1b[0m', 'GraphQL  ', `http://${item.address}:${serverPort}${graphqlPath} (${item.internal === true ? 'local' : 'external'})\n`);
+        }
     });
     console.log('\x1b[32m%s\x1b[0m', '🟢 ============================\n');
 };

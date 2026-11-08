@@ -1,17 +1,15 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
+  "extends": "@tsconfig/node26/tsconfig.json",
   "include": ["src/**/*", "types"],
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
     },
-    "target": "esnext",
-    "module": "nodenext",
     "typeRoots": ["node_modules/@types", "types"],
     "rootDir": "src",
     "outDir": "dist",
-    "lib": ["dom", "esnext"],
-    "skipLibCheck": true,
-    "types": ["node"]
+    "rewriteRelativeImportExtensions": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

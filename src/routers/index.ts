@@ -1,7 +1,7 @@
 import { Router } from '@koa/router'
-import { router as provinceRouter } from './province.js'
-import { router as cityRouter } from './city.js'
-import { router as countyRouter } from './county.js'
+import { router as provinceRouter } from './province.ts'
+import { router as cityRouter } from './city.ts'
+import { router as countyRouter } from './county.ts'
 
 export const router = new Router()
 router.prefix('/api')

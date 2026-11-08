@@ -6,9 +6,9 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 // Local
-import { consoleInit, consoleStart, briefLog } from './utils.js'
-import { fetchSource, parseRawHTML, generateJSON } from './processor.js'
-import { router as apiRouter } from './routers/index.js'
+import { consoleInit, consoleStart, briefLog } from './utils.ts'
+import { fetchSource, parseRawHTML, generateJSON } from './processor.ts'
+import { router as apiRouter } from './routers/index.ts'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const fileName = fileURLToPath(import.meta.url)

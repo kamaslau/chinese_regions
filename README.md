@@ -238,12 +238,12 @@ export default function RegionSelector() {
 ```bash
 git clone https://github.com/kamaslau/chinese_regions.git
 cd chinese_regions
-cp .env.sample .env.local # 可在此配置服务端口
+cp .env.example .env.local # 可在此配置服务端口
 pnpm i
 pnpm start
 ```
 
-以通过 **3000** 端口（即 `.env.sample` 中既有的默认配置）进行服务为例，可相应路径如下：
+以通过 **3000** 端口（即 `.env.example` 中既有的默认配置）进行服务为例，可相应路径如下：
 
 - **GET /api** http://localhost:3000/api 全量数据，可用于数据导入等ETL场景
   - **GET /province** http://localhost:3000/api/province 全部省级行政区列表（含省、自治区、直辖市、特别行政区等）

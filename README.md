@@ -16,7 +16,7 @@
 
 ## 应用场景
 
-为提高全栈开发效率，可将将此库部署到自建 NPM 注册源。
+为提高全栈开发效率，可考虑将此库部署到自建 NPM 注册源，或 monorepo 的公共 lib。
 
 ### 前端开发
 
@@ -254,23 +254,63 @@ pnpm start
 
 ## 数据结构
 
-```txt
-┌ "province" // 省级数据集
-│├ "code": number, // 当前行政区划代码，下同
-│└ "name": string // 当前行政区划名称，下同
-├ "city" // 市级数据集
-│├ "p_code": number, // 所属省级行政区划代码，下同
-│├ "p_name": string, // 所属省级行政区划名称，下同
-│├ "code": number,
-│└ "name": string
-└ "county" // 区县级数据集
- ├ "p_code": number,
- ├ "p_name": string,
- ├ "c_code": number, // 所属市级行政区划代码
- ├ "c_name": string, // 所属市级行政区划代码
- ├ "code": number,
- └ "name": string
+`Regions` 对象包含以下 3 个数组：
+
+```ts
+interface Regions {
+  province: Province[]; // 省级行政区数组
+  city: City[]; // 市级行政区数组
+  county: County[]; // 区县级行政区数组
+}
 ```
+
+### 省级 `province`
+
+```ts
+interface Province {
+  code: number; // 当前行政区划代码
+  name: string; // 当前行政区划名称
+}
+```
+
+| 字段   | 类型     | 说明             |
+| ------ | -------- | ---------------- |
+| `code` | `number` | 当前行政区划代码 |
+| `name` | `string` | 当前行政区划名称 |
+
+### 市级 `city`
+
+```ts
+interface City extends Province {
+  p_code: number; // 所属省级行政区划代码
+  p_name: string; // 所属省级行政区划名称
+}
+```
+
+| 字段     | 类型     | 说明                 |
+| -------- | -------- | -------------------- |
+| `p_code` | `number` | 所属省级行政区划代码 |
+| `p_name` | `string` | 所属省级行政区划名称 |
+| `code`   | `number` | 当前行政区划代码     |
+| `name`   | `string` | 当前行政区划名称     |
+
+### 区县级 `county`
+
+```ts
+interface County extends City {
+  c_code: number; // 所属市级行政区划代码
+  c_name: string; // 所属市级行政区划名称
+}
+```
+
+| 字段     | 类型     | 说明                 |
+| -------- | -------- | -------------------- |
+| `p_code` | `number` | 所属省级行政区划代码 |
+| `p_name` | `string` | 所属省级行政区划名称 |
+| `c_code` | `number` | 所属市级行政区划代码 |
+| `c_name` | `string` | 所属市级行政区划名称 |
+| `code`   | `number` | 当前行政区划代码     |
+| `name`   | `string` | 当前行政区划名称     |
 
 ### 数据样例
 

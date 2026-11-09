@@ -1,0 +1,21 @@
+name: Publish packages to NPM
+on:
+  push:
+    tags:
+      - "*"
+jobs:
+  publish:
+    runs-on: [ubuntu-latest]
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Action digest
+        run: |
+          echo "🎉 The job was triggered by '${{ github.event_name }}' event on branch '${{ github.ref }}' of repository '${{ github.repository }}', running on '${{ runner.os }}/${{ runner.arch }}' runner."
+
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+      - run: npm publish --provenance --ignore-scripts

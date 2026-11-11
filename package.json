@@ -44,7 +44,7 @@
     "eslint": "^10.14.0",
     "husky": "^9.1.7",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.72.1"
+    "typescript-eslint": "^8.72.2"
   },
   "dependencies": {
     "@koa/router": "^15.7.1",
